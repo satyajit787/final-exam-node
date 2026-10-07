@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Task Manager</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+        <div class="form-card">
+            <h2><%= title %></h2>
+
+            <form action="<%= actionUrl %>" method="POST">
+                <div class="form-group">
+                    <label for="title">Task Title</label>
+                    <input type="text" id="title" name="title" class="form-control" value="<%= task ? task.title : '' %>" required placeholder="Enter task title">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="">-- Select Category --</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category._id %>" 
+                                <%= (task && task.category && task.category.toString() === category._id.toString()) ? 'selected' : '' %>>
+                                <%= category.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="Pending" <%= (task && task.status === 'Pending') ? 'selected' : '' %>>Pending</option>
+                        <option value="In Progress" <%= (task && task.status === 'In Progress') ? 'selected' : '' %>>In Progress</option>
+                        <option value="Completed" <%= (task && task.status === 'Completed') ? 'selected' : '' %>>Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="form-control" placeholder="Optional task description..."><%= task ? task.description : '' %></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block">
+                    <%= task ? 'Update Task' : 'Save Task' %>
+                </button>
+                <div style="margin-top: 10px; text-align: center;">
+                    <a href="/tasks" style="color: #666; text-decoration: none; font-size: 0.9rem;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

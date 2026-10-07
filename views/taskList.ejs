@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Task Manager</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+        <div class="page-header">
+            <h2><%= title %></h2>
+            <a href="/tasks/new" class="btn btn-primary">+ Create Task</a>
+        </div>
+
+        <% if (tasks && tasks.length > 0) { %>
+            <% tasks.forEach(task => { %>
+                <%- include('partials/taskItem', { task: task, isAllTasksView: isAllTasksView }) %>
+            <% }) %>
+        <% } else { %>
+            <div class="no-tasks">
+                <p>No tasks found. Click "Create Task" to add your first task.</p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

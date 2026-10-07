@@ -1,0 +1,27 @@
+<nav class="navbar">
+    <a href="/tasks" class="nav-brand">Task Manager</a>
+    <ul class="nav-links">
+        <% if (currentUser) { %>
+            <li><a href="/tasks">My Tasks</a></li>
+            
+            <% if (currentUser.role === 'admin') { %>
+                <li><a href="/tasks/all">All User Tasks</a></li>
+            <% } %>
+
+            <li><a href="/tasks/new" class="btn btn-primary" style="color: #fff;">+ Add Task</a></li>
+            
+            <li>
+                <span class="user-badge">
+                    <%= currentUser.username %>
+                    <% if (currentUser.role === 'admin') { %>
+                        <span class="admin-tag">Admin</span>
+                    <% } %>
+                </span>
+            </li>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        <% } %>
+    </ul>
+</nav>
